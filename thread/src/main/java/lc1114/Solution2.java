@@ -16,12 +16,10 @@ public class Solution2 {
              */
             semaphore+=1;
         }
-        @Override
         public void one(){
             System.out.println("one");
             add();
         }
-        @Override
         public void two(){
             while(true){
                 /**
@@ -34,7 +32,6 @@ public class Solution2 {
                 }
             }
         }
-        @Override
         public void three(){
             while(true){
                 if(semaphore==2){
@@ -49,14 +46,13 @@ public class Solution2 {
         /**
          * 直接使用同步容器,可以放两个信号量作为开关，也可以只放一个作为限流器
          * 依旧使用非阻塞的方式
+         * 建议使用多个信号量，否则会因为信号量竞争
          */
         private Semaphore semaphore=new Semaphore(1);
-        @Override
         public void one(){
             System.out.println("one");
             semaphore.release(1);
         }
-        @Override
         public void two(){
             while (true){
                 if(semaphore.tryAcquire(2)){
@@ -66,7 +62,6 @@ public class Solution2 {
                 }
             }
         }
-        @Override
         public void three(){
             while (true){
                 if(semaphore.tryAcquire(3)){
